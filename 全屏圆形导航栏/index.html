@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="main">
+        <div id="center" class="center">
+            <div id="left">
+                <ul>
+                    <li class="li1" onclick="fun(1)">
+                        <span class="id">1</span>
+                        <span class="bacground1"></span>
+                    </li>
+                    <li class="li2" onclick="fun(2)">
+                        <span class="id">2</span>
+                        <span class="bacground1"></span>
+                    </li>
+                    <li class="li3" onclick="fun(3)">
+                        <span class="id">3</span>
+                        <span class="bacground1"></span>
+                    </li>
+                    <li class="li4" onclick="fun(4)">
+                        <span class="id">4</span>
+                        <span class="bacground1"></span>
+                    </li>
+                    <li class="li5" onclick="fun(5)">
+                        <span class="id">5</span>
+                        <span class="bacground1"></span>
+                    </li>
+                    <li class="li6" onclick="fun(6)">
+                        <span class="id">6</span>
+                        <span class="bacground1"></span>
+                    </li>
+                    <li class="li7" onclick="fun(7)">
+                        <span class="id">7</span>
+                        <span class="bacground1"></span>
+                    </li>
+                    <li class="li8" onclick="fun(8)">
+                        <span class="id">8</span>
+                        <span class="bacground1"></span>
+                    </li>
+                    <li class="li9" onclick="fun(9)">
+                        <span class="id">9</span>
+                        <span class="bacground1"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var first = 3;
+    var alldeg = 0;
+    var ment = 0;
+    var ment2 = 0;
+    function fun(i){
+        var m = first-i;
+        alldeg = m*4;
+        if(alldeg>18){
+            alldeg=alldeg-36;
+        }else if(alldeg<-18){
+            
+            alldeg=36+alldeg;
+        }
+        first = i;
+        function someAnimation(args){
+            ment2 = ment + args;
+            document.getElementById("left").style.WebkitTransform="rotate("+ment2+"deg)";              
+        }
+        ment = ment2;
+        function donghua(){
+            for(var i=0;i<=10;i++){
+                setTimeout((function(pos){
+                    return function(){
+                        someAnimation(pos);
+                    }
+                })(i*alldeg),i*100)
+            }
+        }
+        var play = setInterval(donghua(),1000);
+        clearInterval(play);
+        document.getElementById("left").style.WebkitTransform="rotate("+ment+"deg)";
+        document.getElementById("center").style.backgroundImage = "url(./img/img-"+i+".jpg)";
+    }
+
+
+</script>
+</html>
