@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    html,body
+    {
+        height:100%;
+        margin: 0;
+        font-size: 24px;
+        color: #fff;
+        font-family: '微软雅黑';
+        line-height: 50px;
+        text-align: center;
+        overflow: hidden;
+    }
+    #div-box{
+        position: relative;
+        width: 320px;
+        height: 100%;
+        background: #87CEFA;
+        margin:0px 0 0 120px ;
+    }
+    .div{
+        width: 100%;
+        height: 100%;
+    }
+    .font1{
+        background: red;
+    }
+    .font2{
+        background: green;
+    }
+    .font3{
+        background: yellow;
+    }
+    .font4{
+        background: pink;
+    }
+    </style>
+</head>
+<body>
+    <div id="div-box">
+        <div class="div font1"></div>
+        <div class="div font2"></div>
+        <div class="div font3"></div>
+        <div class="div font4"></div>
+    </div>
+</body>
+<script src="../秀/snowbackground/js/jquery.min.js"></script>
+<script>
+    var id=0;
+    $(document).on('mousewheel DOMMouseScroll', throttle(onMouseScroll,1000));
+
+    function throttle(func, wait) {
+        let previous = 0;
+        return function() {
+            let now = Date.now();
+            let context = this;
+            let args = arguments;
+            if (now - previous > wait) {
+                func.apply(context, args);
+                previous = now;
+            }
+        }
+    }
+
+    function onMouseScroll(e){
+        e.preventDefault();
+        var wheel = e.originalEvent.wheelDelta || -e.originalEvent.detail;
+        var delta = Math.max(-1, Math.min(1, wheel) );
+        if(delta<0){//向下滚动
+            if(id>=3){
+            }else{
+                id++;
+                fun(-1);
+            }
+        }else{//向上滚动
+            if(id<1){
+            }else{
+                id--;
+                fun(1); 
+            }
+        }    
+    }
+
+    var ment = 0;
+    var ment2 = 0;
+    var olddata = 0;
+    function fun(id){
+        var height = document.getElementById("div-box").offsetHeight;
+        if(id===1){
+            olddata = height;
+        }else{
+            olddata = -1*height;
+        }
+        function someanimation(args){
+            ment2 = ment + args;
+            document.getElementById("div-box").style.marginTop = ''+ment2+'px'; 
+        }
+        ment = ment2;
+        function donghua(){
+            for(var i = 0; i<=1000; i++){
+                setTimeout((function(pos){
+                    return function(){
+                        someanimation(pos);
+                    }
+                })(i*olddata/1000),i*1)
+            }
+        }
+        var play = setInterval(donghua(),1000);
+        document.getElementById("div-box").style.marginTop = ''+ment+'px'; 
+    }
+
+
+</script>
+</html>
